@@ -1,0 +1,59 @@
+mysql> create database Bookmanagement;
+Query OK, 1 row affected (0.49 sec)
+
+
+mysql> use Bookmanagement;
+Database changed
+mysql> create table book_dtls( bid int not null, btitle varchar(12)not null, copies int not null );
+Query OK, 0 rows affected (0.75 sec)
+
+
+mysql> insert into book_dtls values(1,'Java',10), (2,'c++',5), (3,'Mysql',10), (4,'Oracle DBMS',5);
+Query OK, 4 rows affected (0.33 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+
+mysql> select*from book_dtls;
++-----+-------------+--------+
+| bid | btitle      | copies |
++-----+-------------+--------+
+|   1 | Java        |     10 |
+|   2 | c++         |      5 |
+|   3 | Mysql       |     10 |
+|   4 | Oracle DBMS |      5 |
++-----+-------------+--------+
+4 rows in set (0.03 sec)
+
+
+mysql> create trigger book_copy_deduct
+    -> after insert
+    -> on book_issue
+    -> for each row
+    -> update book_dtls set copies=copies-1 where bid=new.bid;
+Query OK, 0 rows affected (0.23 sec)
+
+mysql> insert into book_issue values(1,100,'java');
+Query OK, 1 row affected (0.11 sec)
+
+
+mysql> select * from book_dtls;
++-----+-------------+--------+
+| bid | btitle      | copies |
++-----+-------------+--------+
+|   1 | Java        |      9 |
+|   2 | c++         |      5 |
+|   3 | Mysql       |     10 |
+|   4 | Oracle DBMS |      5 |
++-----+-------------+--------+
+4 rows in set (0.00 sec)
+
+
+mysql> select * from book_issue;
++-----+-----+--------+
+| bid | sid | btitle |
++-----+-----+--------+
+|   1 | 100 | java   |
++-----+-----+--------+
+1 row in set (0.00 sec)
+
+

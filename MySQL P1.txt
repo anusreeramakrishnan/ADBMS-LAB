@@ -1,0 +1,306 @@
+mysql> create database Company;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use Company;
+Database changed
+mysql> create table Employee(
+    -> Emp_no int,
+    -> Emp_name varchar(15),
+    -> Address varchar(15),
+    -> sex varchar(15),
+    -> Dept varchar(15),
+    -> Salary int,
+    -> DOJ date,
+    -> Branch varchar(15)
+    -> );
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> describe Employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| Emp_no   | int(11)     | NO   | PRI | NULL    |       |
+| Emp_name | varchar(15) | NO   |     | NULL    |       |
+| Address  | varchar(15) | NO   |     | NULL    |       |
+| sex      | varchar(15) | NO   |     | NULL    |       |
+| Dept     | varchar(15) | NO   |     | NULL    |       |
+| salary   | int(11)     | NO   |     | NULL    |       |
+| DOJ      | date        | NO   |     | NULL    |       |
+| Branch   | varchar(15) | NO   |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+
+mysql> create table Department(
+    -> Dep_no int,
+    -> D_name varchar(15),
+    -> Mgr_id int,
+    -> Mgr_strtdate date
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| Company            |
+| linuxhint          |
+| mysql              |
+| performance_schema |
+| studentdb          |
+| sys                |
++--------------------+
+7 rows in set (0.00 sec)
+
+mysql> show tables;
++-------------------+
+| Tables_in_Company |
++-------------------+
+| Department        |
+| Employee          |
++-------------------+
+2 rows in set (0.00 sec)
+
+mysql> use Company;
+Database changed
+mysql> create table Employee(
+    -> Emp_no int primary key,
+    -> Emp_name varchar(15) not null,
+    -> Address varchar(15) not null,
+    -> Sex varchar(15) not null,
+    -> Dept varchar(15) not null,
+    -> Salary int not null,
+    -> DOJ date not null,
+    -> Branch varchar(15) not null
+    -> );
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> create table Department(
+    -> Dept_no int primary key,
+    -> D_name varchar(15) not null,
+    -> Mgr_id int not null,
+    -> Mgr_strtdate date not null
+    -> );
+Query OK, 0 rows affected (0.22 sec)
+
+mysql> insert into Employee
+    -> values(1,'Anu','Kannur','f','HRM',18000,'2020-11-26','IT'),
+    -> (2,'Sam','Idukki','m','marketing',17500,'2020-09-22','IT'),
+    -> (3,'Aru','Kollam','f','R&D',19000,'2019-12-19','IT'),
+    -> (4,'Ram','Thrissur','m','finance',18000,'2019-05-12','IT');
+Query OK, 4 rows affected (0.04 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> insert into Department
+    -> values
+    -> (1,'smith',1001,'2005-06-08'),
+    -> (2,'jhon',1002,'2006-06-10'),
+    -> (3,'maria',1003,'2009-04-10'),
+    -> (4,'Ann',1004,'2009-04-11');
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select*from Employee;
++--------+----------+----------+-----+-----------+--------+------------+--------+
+| Emp_no | Emp_name | Address  | sex | Dept      | salary | DOJ        | Branch |
++--------+----------+----------+-----+-----------+--------+------------+--------+
+|      1 | Anu      | Kannur   | f   | HRM       |  18000 | 2020-11-26 | IT     |
+|      2 | Sam      | Idukki   | m   | marketing |  17500 | 2020-09-22 | IT     |
+|      3 | Aru      | Kollam   | f   | R&D       |  19000 | 2019-12-19 | IT     |
+|      4 | Ram      | Thrissur | m   | finance   |  18000 | 2019-05-12 | IT     |
++--------+----------+----------+-----+-----------+--------+------------+--------+
+4 rows in set (0.00 sec)
+
+
+mysql> select * from Department;
++---------+-------+--------+--------------+
+| Dept_No | Dname | Mgr_id | Mgr_strtdate |
++---------+-------+--------+--------------+
+|       1 | smith |   1001 | 2005-06-08   |
+|       2 | jhon  |   1002 | 2006-06-10   |
+|       3 | maria |   1003 | 2009-04-10   |
+|       4 | Ann   |   1004 | 2009-04-11   |
++---------+-------+--------+--------------+
+4 rows in set (0.00 sec)
+
+
+mysql> update Employee
+    -> set address='Palakkad'
+    -> where Emp_no=2;
+Query OK, 1 row affected (0.45 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+
+mysql> select*from Employee;
++--------+----------+----------+-----+-----------+--------+------------+--------+
+| Emp_no | Emp_name | Address  | sex | Dept      | salary | DOJ        | Branch |
++--------+----------+----------+-----+-----------+--------+------------+--------+
+|      1 | Anu      | Kannur   | f   | HRM       |  18000 | 2020-11-26 | IT     |
+|      2 | Sam      | Palakkad | m   | marketing |  17500 | 2020-09-22 | IT     |
+|      3 | Aru      | Kollam   | f   | R&D       |  19000 | 2019-12-19 | IT     |
+|      4 | Ram      | Thrissur | m   | finance   |  18000 | 2019-05-12 | IT     |
++--------+----------+----------+-----+-----------+--------+------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> delete from Employee
+    -> where Emp_no=4;
+Query OK, 1 row affected (0.00 sec)
+
+
+II)
+mysql> alter table Department
+    -> rename to Dept;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show tables;
++-------------------+
+| Tables_in_Company |
++-------------------+
+| Dept              |
+| Employee          |
++-------------------+
+2 rows in set (0.00 sec)
+
+mysql> alter table Dept
+    -> add phone int not null;
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from Dept;
++---------+-------+--------+--------------+-------+
+| Dept_No | Dname | Mgr_id | Mgr_strtdate | phone |
++---------+-------+--------+--------------+-------+
+|       1 | smith |   1001 | 2005-06-08   |     0 |
+|       2 | jhon  |   1002 | 2006-06-10   |     0 |
+|       3 | maria |   1003 | 2009-04-10   |     0 |
+|       4 | Ann   |   1004 | 2009-04-11   |     0 |
++---------+-------+--------+--------------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table Dept
+    -> modify Dept_Name char(10);
+Query OK, 4 rows affected (0.12 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from Dept;
++---------+-----------+--------+--------------+-------+
+| Dept_No | Dept_Name | Mgr_id | Mgr_strtdate | phone |
++---------+-----------+--------+--------------+-------+
+|       1 | smith     |   1001 | 2005-06-08   |     0 |
+|       2 | jhon      |   1002 | 2006-06-10   |     0 |
+|       3 | maria     |   1003 | 2009-04-10   |     0 |
+|       4 | Ann       |   1004 | 2009-04-11   |     0 |
++---------+-----------+--------+--------------+-------+
+4 rows in set (0.00 sec)
+
+
+
+III)
+
+mysql> SELECT emp_no,salary FROM Employee;
++--------+--------+
+| emp_no | salary |
++--------+--------+
+|      1 |  18000 |
+|      2 |  17500 |
+|      3 |  19000 |
++--------+--------+
+3 rows in set (0.05 sec)
+
+
+mysql> SELECT AVG(salary) AS 'average salary' FROM Employee;
++----------------+
+| average salary |
++----------------+
+|     18166.6667 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT COUNT(*)FROM Employee;
++----------+
+| COUNT(*) |
++----------+
+|        3 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DISTINCT COUNT(*)FROM Employee;
++----------+
+| COUNT(*) |
++----------+
+|        3 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select sum(salary) from Employee
+    -> where salary>12000;
++-------------+
+| sum(salary) |
++-------------+
+|       54500 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select sum(salary) as 'total salary' from Employee
+    -> group by Emp_name
+    -> having count(Emp_name)>1;
+Empty set (0.00 sec)
+
+mysql> select Emp_name from Employee
+    -> order by Emp_name desc;
++----------+
+| Emp_name |
++----------+
+| Sam      |
+| Aru      |
+| Anu      |
++----------+
+3 rows in set (0.00 sec)
+
+mysql> update Employee 
+    -> set Emp_name='charu'
+    -> where Emp_no=3;
+Query OK, 1 row affected (0.34 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update Employee
+    -> set salary=20000
+    -> where Emp_no=3;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+
+mysql> select *from Employee;
++--------+----------+----------+-----+-----------+--------+------------+--------+
+| Emp_no | Emp_name | Address  | sex | Dept      | salary | DOJ        | Branch |
++--------+----------+----------+-----+-----------+--------+------------+--------+
+|      1 | Anu      | Kannur   | f   | HRM       |  18000 | 2020-11-26 | IT     |
+|      2 | Sam      | Palakkad | m   | marketing |  17500 | 2020-09-22 | IT     |
+|      3 | charu    | Kollam   | f   | R&D       |  20000 | 2019-12-19 | IT     |
++--------+----------+----------+-----+-----------+--------+------------+--------+
+3 rows in set (0.00 sec)
+
+
+mysql> select *from Employee
+    -> where Emp_name='charu' and salary=20000;
++--------+----------+---------+-----+------+--------+------------+--------+
+| Emp_no | Emp_name | Address | sex | Dept | salary | DOJ        | Branch |
++--------+----------+---------+-----+------+--------+------------+--------+
+|      3 | charu    | Kollam  | f   | R&D  |  20000 | 2019-12-19 | IT     |
++--------+----------+---------+-----+------+--------+------------+--------+
+1 row in set (0.00 sec)
+
+
+mysql> drop table Dept;
+
+
+
+
+
+
+
+
+
+
+
